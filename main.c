@@ -8,7 +8,7 @@ int main() {
     // Activer les couleurs
     start_color();
     // Définir une paire de couleurs
-    init_pair(1, COLOR_RED, COLOR_WHITE);s
+    init_pair(1, COLOR_RED, COLOR_WHITE);
     // Appliquer la paire de couleurs à la fenêtre
     wbkgd(fenetre, COLOR_PAIR(1));
     // Rafraîchir l'écran pour afficher la fenêtre
@@ -16,8 +16,6 @@ int main() {
     // Attendre une entrée utilisateur
     getch();
     // Fermer la fenêtre et quitter ncurses
-    delwin(fenetre);
-    endwin();
     return 0;
 }
 
