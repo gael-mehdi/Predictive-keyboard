@@ -11,7 +11,7 @@ int main()
     noecho(); // Ne pas afficher les caractères saisis
     keypad(stdscr, TRUE); // Active les touches spéciales (F1, flèches, etc.)
 
-    printw("Entrez du texte. Appuyez sur ESC pour quitter.");
+    printw("Entrez du texte. Appuyez sur ESC pour quitter. \n");
 
     do {
         ch = getch();
