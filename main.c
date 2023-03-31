@@ -16,10 +16,10 @@ int main()
 
     do {
         ch = getch();
-        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) {
+        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
             printw("%c", ch); // Affiche le caractère saisi
         }
-        if (ch == (char)KEY_SUPPR){
+        if (ch == (char)KEY_SUPPR){ // Si l'utilisateur veut supprimer un caractère
             move(getcury(stdscr), getcurx(stdscr) - 1); // Se déplace d'un caractère à gauche
             delch(); // Supprime le caractère précédent le curseur
             refresh(); // Rafraîchit l'écran
