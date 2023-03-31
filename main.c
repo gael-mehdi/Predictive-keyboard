@@ -1,21 +1,26 @@
 #include <ncurses.h>
 
-int main() {
-    // Initialiser ncurses
-    initscr();
-    // Créer une fenêtre de 10 lignes et 20 colonnes, en commençant aux coordonnées (2, 2)
-    WINDOW* fenetre = newwin(10, 20, 2, 2);
-    // Activer les couleurs
-    start_color();
-    // Définir une paire de couleurs
-    init_pair(1, COLOR_RED, COLOR_WHITE);
-    // Appliquer la paire de couleurs à la fenêtre
-    wbkgd(fenetre, COLOR_PAIR(1));
-    // Rafraîchir l'écran pour afficher la fenêtre
-    refresh();
-    // Attendre une entrée utilisateur
-    getch();
-    // Fermer la fenêtre et quitter ncurses
+#define KEY_ESC 27
+
+int main()
+{
+    char ch;
+
+    initscr(); // Initialise ncurses
+    cbreak(); // Désactive le buffering de ligne
+    noecho(); // Ne pas afficher les caractères saisis
+    keypad(stdscr, TRUE); // Active les touches spéciales (F1, flèches, etc.)
+
+    printw("Entrez du texte. Appuyez sur ESC pour quitter.");
+
+    do {
+        ch = getch();
+        if (ch != (char)KEY_ESC) {
+            printw("%c", ch); // Affiche le caractère saisi
+        }
+    } while (ch != (char)KEY_ESC);
+
+    endwin(); // Ferme ncurses
+
     return 0;
 }
-
