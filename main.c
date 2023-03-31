@@ -1,11 +1,13 @@
- #include <ncurses.h>
+#include <ncurses.h>
+#include <string.h>
 
- #define KEY_ESC 27
- #define KEY_SUPPR 127
+#define KEY_ESC 27
+#define KEY_SUPPR 127
 
 int main()
 {
     char ch;
+    char mot[50];
 
     initscr(); // Initialise ncurses
     cbreak(); // Désactive le buffering de ligne
@@ -16,18 +18,20 @@ int main()
 
     do {
         ch = getch();
-        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
-            printw("%c", ch); // Affiche le caractère saisi
+        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) {
+            char str[2] = {ch, '\0'}; // Crée une chaîne de caractères contenant le caractère saisi
+            strcat(mot, str); // Ajoute le caractère saisi à la chaîne mot
         }
-        if (ch == (char)KEY_SUPPR){ // Si l'utilisateur veut supprimer un caractère
-            move(getcury(stdscr), getcurx(stdscr) - 1); // Se déplace d'un caractère à gauche
-            delch(); // Supprime le caractère précédent le curseur
-            refresh(); // Rafraîchit l'écran
+        if (ch == (char)KEY_SUPPR){
+            move(getcury(stdscr), getcurx(stdscr) - 1);
+            delch();
+            refresh();
+            mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
         }
+        printw("%s", mot);
     } while (ch != (char)KEY_ESC);
 
     endwin(); // Ferme ncurses
 
     return 0;
 }
-
