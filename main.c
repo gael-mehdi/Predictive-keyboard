@@ -1,5 +1,5 @@
 // test
 
-int maind(){
+int main(){
 	return 0;
 }
