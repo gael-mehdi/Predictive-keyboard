@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <ncurses.h>
+#include <string.h>
 
 // Cette fonction prend trois entiers en entrée et retourne le minimum de ces trois valeurs
 int min(int x, int y, int z) {
@@ -37,11 +39,4 @@ int levenshtein_distance(char *s1, char *s2) {
     }
 
     return matrix[len1][len2]; // Retourne la distance de Levenshtein entre les deux chaînes
-}
-
-int main() {
-    char s1[] = "hello"; // Première chaîne de caractères
-    char s2[] = "world"; // Deuxième chaîne de caractères
-    printf("Distance: %d\n", levenshtein_distance(s1, s2)); // Affiche la distance de Levenshtein entre les deux chaînes
-    return 0;
 }

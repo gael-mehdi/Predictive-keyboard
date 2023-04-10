@@ -1,5 +1,4 @@
-#include <ncurses.h>
-#include <string.h>
+#include "fonctions.h"
 
 #define KEY_ESC 27
 #define KEY_SUPPR 127
