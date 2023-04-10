@@ -10,27 +10,19 @@
 #define KEY_SUPPR 127
 #define MAX_WORD_LENGHT	40		/* Maximum word length */
 #define dictionaryFileName "mots_courants.txt"
+#define HASH_SIZE 37987	/* Prime number */
+#define BASE 128
 
-typedef struct _element
-
-{
-
-	char			word[MAX_WORD_LENGHT];
-
+typedef struct _element{
+	char word[MAX_WORD_LENGHT];
 	struct _element* next;
-
 } Element;
 
-
-
-typedef struct _hashTable
-{
-
-	unsigned int	size;
-	unsigned int	nbOccupiedEntries;
-	unsigned int	nbElements;
-	Element**		Elements;
-
+typedef struct _hashTable{
+	unsigned int size;
+	unsigned int nbOccupiedEntries;
+	unsigned int nbElements;
+	Element** Elements;
 } HashTable;
 
 // Cette fonction prend trois entiers en entrée et retourne le minimum de ces trois valeurs
@@ -100,8 +92,7 @@ void fenetre(){
     endwin(); // Ferme ncurses
 }
 
-void initializeHashTable(HashTable* hashTab)
-{
+void initializeHashTable(HashTable* hashTab){
 	hashTab->size = HASH_SIZE;
 	hashTab->nbOccupiedEntries = 0;
 	hashTab->nbElements = 0;
@@ -113,8 +104,7 @@ void initializeHashTable(HashTable* hashTab)
 
 
 
-void loadDictionaryFromFile(HashTable* hashTab, const char* dictionaryFileName)
-{
+void loadDictionaryFromFile(HashTable* hashTab){
 	FILE* fp;
 	fp = fopen(dictionaryFileName, "r");
 
@@ -129,8 +119,7 @@ void loadDictionaryFromFile(HashTable* hashTab, const char* dictionaryFileName)
 		printf("File not found.");
 }
 
-unsigned long getHashValue(char* string)
-{
+unsigned long getHashValue(char* string){
 	unsigned long	hashValue = 0;
 	int				i = 0;
 
@@ -143,8 +132,7 @@ unsigned long getHashValue(char* string)
 	return hashValue % HASH_SIZE;
 }
 
-void insertElementToHashTable(HashTable* hashTab, char* word)
-{
+void insertElementToHashTable(HashTable* hashTab, char* word){
 	hashTab->nbElements++;
 	unsigned long	i = getHashValue(word);
 	Element* elem = (Element*)malloc(sizeof(Element));
@@ -157,8 +145,7 @@ void insertElementToHashTable(HashTable* hashTab, char* word)
 	hashTab->Elements[i] = elem;
 }
 
-bool checkExistenceWordInDictionary(HashTable* hashTab, char* word)
-{
+bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){
 	unsigned long	hashValue = getHashValue(word);
 	Element* elem = hashTab->Elements[hashValue];
 	bool		found = 0;
