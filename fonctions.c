@@ -98,25 +98,28 @@ void initializeHashTable(HashTable* hashTab){
 	hashTab->nbElements = 0;
 	hashTab->Elements = (Element**)malloc(hashTab->size * sizeof(Element*));
 
-	for (unsigned int i = 0; i < hashTab->size; i++)
-		hashTab->Elements[i] = NULL;
+	for (unsigned int i = 0; i < hashTab->size; i++){
+        hashTab->Elements[i] = NULL;
+    }
 }
 
 
 
 void loadDictionaryFromFile(HashTable* hashTab){
-	FILE* fp;
+	
+    FILE* fp;
 	fp = fopen(dictionaryFileName, "r");
 
-	if (fp != NULL)
-	{
+	if (fp != NULL){
 		char word[MAX_WORD_LENGHT];
-		while (fscanf(fp, "%s", word) == 1)
-			insertElementToHashTable(hashTab, word);
-		fclose(fp);
+		while (fscanf(fp, "%s", word) == 1){
+            insertElementToHashTable(hashTab, word);
+        }
+        fclose(fp);
 	}
-	else 
+	else{
 		printf("File not found.");
+    }    
 }
 
 unsigned long getHashValue(char* string){
@@ -133,22 +136,22 @@ unsigned long getHashValue(char* string){
 }
 
 void insertElementToHashTable(HashTable* hashTab, char* word){
-	hashTab->nbElements++;
-	unsigned long	i = getHashValue(word);
-	Element* elem = (Element*)malloc(sizeof(Element));
+	hashTab->nbElements++ ;
+	unsigned long i = getHashValue(word) ;
+	Element* elem = (Element*)malloc(sizeof(Element)) ;
 	strcpy(elem->word, word);
 
-	if (hashTab->Elements[i] == NULL)
+	if (hashTab->Elements[i] == NULL){
 		hashTab->nbOccupiedEntries++;
-
-	elem->next = hashTab->Elements[i];
-	hashTab->Elements[i] = elem;
+    }
+	elem->next = hashTab->Elements[i] ;
+	hashTab->Elements[i] = elem ;
 }
 
 bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){
-	unsigned long	hashValue = getHashValue(word);
+	unsigned long hashValue = getHashValue(word);
 	Element* elem = hashTab->Elements[hashValue];
-	bool		found = 0;
+	bool found = 0;
 
 	while (found == 0 && elem != NULL)
 	{
