@@ -47,7 +47,7 @@ int levenshtein_distance(char *s1, char *s2) {
 // Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
 void fenetre(){
     char ch;
-    char mot[50];
+    char mot[50]; // les mots feront moins de 50 caracteres
 
     initscr(); // Initialise ncurses
     cbreak(); // Désactive le buffering de ligne

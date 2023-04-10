@@ -3,6 +3,5 @@
 int main()
 {
     fenetre();
-
     return 0;
 }
