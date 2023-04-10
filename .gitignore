@@ -2,4 +2,4 @@
 fonctions
 main
 main.o
-main.h
+fonctions.o
