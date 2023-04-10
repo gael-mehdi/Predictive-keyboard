@@ -103,25 +103,6 @@ void initializeHashTable(HashTable* hashTab){
     }
 }
 
-
-
-void loadDictionaryFromFile(HashTable* hashTab){
-	
-    FILE* fp;
-	fp = fopen(dictionaryFileName, "r");
-
-	if (fp != NULL){
-		char word[MAX_WORD_LENGHT];
-		while (fscanf(fp, "%s", word) == 1){
-            insertElementToHashTable(hashTab, word);
-        }
-        fclose(fp);
-	}
-	else{
-		printf("File not found.");
-    }    
-}
-
 unsigned long getHashValue(char* string){
 	unsigned long	hashValue = 0;
 	int				i = 0;
@@ -146,6 +127,23 @@ void insertElementToHashTable(HashTable* hashTab, char* word){
     }
 	elem->next = hashTab->Elements[i] ;
 	hashTab->Elements[i] = elem ;
+}
+
+void loadDictionaryFromFile(HashTable* hashTab){
+	
+    FILE* fp;
+	fp = fopen(dictionaryFileName, "r");
+
+	if (fp != NULL){
+		char word[MAX_WORD_LENGHT];
+		while (fscanf(fp, "%s", word) == 1){
+            insertElementToHashTable(hashTab, word);
+        }
+        fclose(fp);
+	}
+	else{
+		printf("File not found.");
+    }    
 }
 
 bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){

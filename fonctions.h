@@ -29,7 +29,7 @@ int min(int x, int y, int z);
 int levenshtein_distance(char *s1, char *s2);
 void fenetre();
 void initializeHashTable(HashTable* hashTab);
-void loadDictionaryFromFile(HashTable* hashTab);
 unsigned long getHashValue(char* string);
 void insertElementToHashTable(HashTable* hashTab, char* word);
+void loadDictionaryFromFile(HashTable* hashTab);
 bool checkExistenceWordInDictionary(HashTable* hashTab, char* word);
