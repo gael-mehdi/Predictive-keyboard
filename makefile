@@ -5,4 +5,4 @@ fonctions.o: fonctions.c fonctions.h
 	gcc -c fonctions.c
 
 main: main.o fonctions.o
-	gcc main.o fonctions.o -o main -lm 
+	gcc main.o fonctions.o -o main -lm
