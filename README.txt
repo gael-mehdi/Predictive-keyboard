@@ -5,3 +5,9 @@ Avant d'�tre exploitable, il doit �tre pr�-trait� et converti dans un fo
 - associer un nombre d�occurrences � chaque mot distinct figurant dans le fichier "mots_courants.txt" ;
 
 - associer la date de la derni�re utilisation.  
+
+**************************************************************
+README de notre projet
+**************************************************************
+
+- Compiler en écrivant "make main" dans le terminal.
