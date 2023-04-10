@@ -14,9 +14,8 @@ int main()
 
     do {
         ch = getch();
-        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) {
-            char str[2] = {ch, '\0'}; // Crée une chaîne de caractères contenant le caractère saisi
-            strcat(mot, str); // Ajoute le caractère saisi à la chaîne mot
+        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
+            printw("%c", ch); // Affiche le caractère saisi
         }
         if (ch == (char)KEY_SUPPR){
             move(getcury(stdscr), getcurx(stdscr) - 1);
