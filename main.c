@@ -1,8 +1,5 @@
 #include "fonctions.h"
 
-#define KEY_ESC 27
-#define KEY_SUPPR 127
-
 int main()
 {
     char ch;

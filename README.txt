@@ -1,7 +1,7 @@
-Afin d’élargir le spectre des fonctionnalités possibles du projet "Saisie intuitive", un fichier texte brut vous est fourni.Ce fichier, intitulé "mots _courants.txt" contient l'ensemble de mots provenant des fichiers SMS fournis.
+Afin dï¿½ï¿½largir le spectre des fonctionnalitï¿½s possibles du projet "Saisie intuitive", un fichier texte brut vous est fourni.Ce fichier, intitulï¿½ "mots _courants.txt" contient l'ensemble de mots provenant des fichiers SMS fournis.
 
-Avant d'être exploitable, il doit être pré-traité et converti dans un format qui répond aux besoins de votre application, e.g. :
+Avant d'ï¿½tre exploitable, il doit ï¿½tre prï¿½-traitï¿½ et converti dans un format qui rï¿½pond aux besoins de votre application, e.g. :
 
-- associer un nombre d’occurrences à chaque mot distinct figurant dans le fichier "mots _courants.txt" ;
+- associer un nombre dï¿½occurrences ï¿½ chaque mot distinct figurant dans le fichier "mots_courants.txt" ;
 
-- associer la date de la dernière utilisation.  
+- associer la date de la derniï¿½re utilisation.  
