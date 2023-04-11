@@ -3,7 +3,6 @@
 int main()
 {
 
-    creating_occ();
-
+    tri_occ();
     return 0;
 }

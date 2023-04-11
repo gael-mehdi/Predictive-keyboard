@@ -195,7 +195,7 @@ void creating_occ(){
     fclose(input_file);
     
     // Ouvrir le fichier de sortie
-    FILE *output_file = fopen("mots_courants_occurrence", "w");
+    FILE *output_file = fopen("mots_courants_occurrence.txt", "w");
     if (output_file == NULL) {
         fprintf(stderr, "Impossible d'ouvrir le fichier de sortie\n");
         exit(EXIT_FAILURE);
@@ -207,5 +207,56 @@ void creating_occ(){
     }
     
     // Fermer le fichier de sortie
+    fclose(output_file);
+}
+
+int compare_word_counts(const void *a, const void *b) {
+    const WordCount *wc1 = (const WordCount *) a;
+    const WordCount *wc2 = (const WordCount *) b;
+    if (wc1->count > wc2->count) {
+        return -1;
+    } else if (wc1->count < wc2->count) {
+        return 1;
+    } else {
+        return strcmp(wc1->word, wc2->word);
+    }
+}
+
+void sort_word_counts(WordCount *word_counts, int num_words) {
+    qsort(word_counts, num_words, sizeof(WordCount), compare_word_counts);
+}
+
+void tri_occ(){
+    // Ouvrir le fichier d'entrée
+    FILE *input_file = fopen("mots_courants_occurrence.txt", "r");
+    if (input_file == NULL) {
+        fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Compter le nombre d'occurrences de chaque mot
+    int num_words = 0;
+    WordCount word_counts[MAX_WORDS];
+    char current_word[MAX_WORD_LENGTH];
+    while (fscanf(input_file, "%s %d", current_word, &word_counts[num_words].count) == 2) {
+        strcpy(word_counts[num_words].word, current_word);
+        num_words++;
+    }
+    
+    // Fermer le fichier d'entrée
+    fclose(input_file);
+    
+    // Trier les mots par ordre décroissant de leur nombre d'occurrences
+    sort_word_counts(word_counts, num_words);
+    
+    // Écrire les mots triés dans le nouveau fichier
+    FILE *output_file = fopen("mots_courants_occurrence_tries.txt", "w");
+    if (output_file == NULL) {
+        fprintf(stderr, "Impossible d'ouvrir le fichier de sortie\n");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < num_words; i++) {
+        fprintf(output_file, "%s %d\n", word_counts[i].word, word_counts[i].count);
+    }
     fclose(output_file);
 }
