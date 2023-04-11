@@ -229,6 +229,5 @@ void fenetre(){
         }
         suggest_words(mot);
     } while (ch != (char)KEY_ESC);
-
     endwin(); // Ferme ncurses
 }
