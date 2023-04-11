@@ -260,3 +260,35 @@ void tri_occ(){
     }
     fclose(output_file);
 }
+
+void suggest_words(char *input_prefix) {
+    // Ouvrir le fichier d'entrée
+    FILE *input_file = fopen("mots_courants_occurrence.txt", "r");
+    if (input_file == NULL) {
+        fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    // Compter le nombre d'occurrences de chaque mot qui commence par l'entrée utilisateur
+    int num_words = 0;
+    WordCount word_counts[MAX_WORDS];
+    char current_word[MAX_WORD_LENGTH];
+    while (fscanf(input_file, "%s %d", current_word, &word_counts[num_words].count) == 2) {
+        if (strncmp(current_word, input_prefix, strlen(input_prefix)) == 0) {
+            strcpy(word_counts[num_words].word, current_word);
+            num_words++;
+        }
+    }
+    
+    // Fermer le fichier d'entrée
+    fclose(input_file);
+    
+    // Trier les mots par ordre décroissant de leur nombre d'occurrences
+    sort_word_counts(word_counts, num_words);
+    
+    // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
+    printf("Voici les trois mots les plus fréquents qui commencent par '%s' :\n", input_prefix);
+    for (int i = 0; i < num_words && i < 3; i++) {
+        printf("%s\n", word_counts[i].word);
+    }
+}
