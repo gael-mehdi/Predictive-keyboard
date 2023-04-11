@@ -163,7 +163,7 @@ bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){
 	return found;
 }
 
-void creating_occ(){
+void create_occ(){
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants.txt", "r");
     if (input_file == NULL) {
@@ -250,7 +250,7 @@ void tri_occ(){
     sort_word_counts(word_counts, num_words);
     
     // Écrire les mots triés dans le nouveau fichier
-    FILE *output_file = fopen("mots_courants_occurrence_tries.txt", "w");
+    FILE *output_file = fopen("mots_courants_occurrence.txt", "w");
     if (output_file == NULL) {
         fprintf(stderr, "Impossible d'ouvrir le fichier de sortie\n");
         exit(EXIT_FAILURE);

@@ -39,7 +39,7 @@ unsigned long getHashValue(char* string);
 void insertElementToHashTable(HashTable* hashTab, char* word);
 void loadDictionaryFromFile(HashTable* hashTab);
 bool checkExistenceWordInDictionary(HashTable* hashTab, char* word);
-void creating_occ();
+void create_occ();
 int compare_word_counts(const void *a, const void *b);
 void sort_word_counts(WordCount *word_counts, int num_words);
 void tri_occ();
