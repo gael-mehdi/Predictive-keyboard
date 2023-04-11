@@ -107,8 +107,7 @@ unsigned long getHashValue(char* string){
 	unsigned long	hashValue = 0;
 	int				i = 0;
 
-	while ((*string) != '\0')
-	{
+	while ((*string) != '\0'){
 		hashValue += hashValue % HASH_SIZE + ((*string) * (int)pow(BASE, i)) % HASH_SIZE;
 		i++;
 		string++;
@@ -151,8 +150,7 @@ bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){
 	Element* elem = hashTab->Elements[hashValue];
 	bool found = 0;
 
-	while (found == 0 && elem != NULL)
-	{
+	while (found == 0 && elem != NULL){
 		found = (strcmp(word, elem->word) == 0);
 		elem = elem->next;
 	}
