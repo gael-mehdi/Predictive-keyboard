@@ -2,16 +2,10 @@
 
 int main()
 {
+    // Calcul et tri des mots de mots_courants.txt dans mots_courants_occurrence.txt
     create_occ();
     tri_occ();
     
-    // Demander l'entrée utilisateur
-    char input_word[MAX_WORD_LENGTH];
-    printf("Entrez un mot : ");
-    scanf("%s", input_word);
-    
-    // Suggérer des mots
-    suggest_words(input_word);
-    
+    fenetre();
     return 0;
 }

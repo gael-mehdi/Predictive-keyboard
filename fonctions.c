@@ -8,6 +8,7 @@
 
 #define KEY_ESC 27
 #define KEY_SUPPR 127
+#define KEY_ESP 32
 #define MAX_WORD_LENGTH	40		/* Maximum word length */
 #define dictionaryFileName "mots_courants.txt"
 #define HASH_SIZE 37987	/* Prime number */
@@ -72,7 +73,7 @@ int levenshtein_distance(char *s1, char *s2) {
 // Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
 void fenetre(){
     char ch;
-    char mot[MAX_WORD_LENGTH];
+    char mot[MAX_WORD_LENGTH]="";
 
     initscr(); // Initialise ncurses
     cbreak(); // Désactive le buffering de ligne
@@ -84,7 +85,14 @@ void fenetre(){
     do {
         ch = getch();
         if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
-            printw("%c", ch); // Affiche le caractère saisi
+            printw("%c", ch);
+            char c[2] = {ch, '\0'}; // Crée un tableau de caractères pour stocker le caractère entré
+            if (ch != (char)KEY_ESP) {
+                strcat(mot, c);
+            }
+            else{
+                memset(mot, 0, sizeof(mot));
+            }
         }
         if (ch == (char)KEY_SUPPR){
             move(getcury(stdscr), getcurx(stdscr) - 1);
@@ -92,75 +100,10 @@ void fenetre(){
             refresh();
             mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
         }
-        printw("%s", mot);
+        
     } while (ch != (char)KEY_ESC);
 
     endwin(); // Ferme ncurses
-}
-
-void initializeHashTable(HashTable* hashTab){
-	hashTab->size = HASH_SIZE;
-	hashTab->nbOccupiedEntries = 0;
-	hashTab->nbElements = 0;
-	hashTab->Elements = (Element**)malloc(hashTab->size * sizeof(Element*));
-
-	for (unsigned int i = 0; i < hashTab->size; i++){
-        hashTab->Elements[i] = NULL;
-    }
-}
-
-unsigned long getHashValue(char* string){
-	unsigned long	hashValue = 0;
-	int				i = 0;
-
-	while ((*string) != '\0'){
-		hashValue += hashValue % HASH_SIZE + ((*string) * (int)pow(BASE, i)) % HASH_SIZE;
-		i++;
-		string++;
-	}
-	return hashValue % HASH_SIZE;
-}
-
-void insertElementToHashTable(HashTable* hashTab, char* word){
-	hashTab->nbElements++ ;
-	unsigned long i = getHashValue(word) ;
-	Element* elem = (Element*)malloc(sizeof(Element)) ;
-	strcpy(elem->word, word);
-
-	if (hashTab->Elements[i] == NULL){
-		hashTab->nbOccupiedEntries++;
-    }
-	elem->next = hashTab->Elements[i] ;
-	hashTab->Elements[i] = elem ;
-}
-
-void loadDictionaryFromFile(HashTable* hashTab){
-	
-    FILE* fp;
-	fp = fopen(dictionaryFileName, "r");
-
-	if (fp != NULL){
-		char word[MAX_WORD_LENGTH];
-		while (fscanf(fp, "%s", word) == 1){
-            insertElementToHashTable(hashTab, word);
-        }
-        fclose(fp);
-	}
-	else{
-		printf("File not found.");
-    }    
-}
-
-bool checkExistenceWordInDictionary(HashTable* hashTab, char* word){
-	unsigned long hashValue = getHashValue(word);
-	Element* elem = hashTab->Elements[hashValue];
-	bool found = 0;
-
-	while (found == 0 && elem != NULL){
-		found = (strcmp(word, elem->word) == 0);
-		elem = elem->next;
-	}
-	return found;
 }
 
 void create_occ(){
