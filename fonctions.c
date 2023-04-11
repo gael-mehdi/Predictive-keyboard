@@ -8,13 +8,14 @@
 
 #define KEY_ESC 27
 #define KEY_SUPPR 127
-#define MAX_WORD_LENGHT	40		/* Maximum word length */
+#define MAX_WORD_LENGTH	40		/* Maximum word length */
 #define dictionaryFileName "mots_courants.txt"
 #define HASH_SIZE 37987	/* Prime number */
 #define BASE 128
+#define MAX_WORDS 10000
 
 typedef struct _element{
-	char word[MAX_WORD_LENGHT];
+	char word[MAX_WORD_LENGTH];
 	struct _element* next;
 } Element;
 
@@ -24,6 +25,11 @@ typedef struct _hashTable{
 	unsigned int nbElements;
 	Element** Elements;
 } HashTable;
+
+typedef struct {
+    char word[MAX_WORD_LENGTH];
+    int count;
+} WordCount;
 
 // Cette fonction prend trois entiers en entrée et retourne le minimum de ces trois valeurs
 int min(int x, int y, int z) {
@@ -66,7 +72,7 @@ int levenshtein_distance(char *s1, char *s2) {
 // Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
 void fenetre(){
     char ch;
-    char mot[MAX_WORD_LENGHT];
+    char mot[MAX_WORD_LENGTH];
 
     initscr(); // Initialise ncurses
     cbreak(); // Désactive le buffering de ligne
@@ -134,7 +140,7 @@ void loadDictionaryFromFile(HashTable* hashTab){
 	fp = fopen(dictionaryFileName, "r");
 
 	if (fp != NULL){
-		char word[MAX_WORD_LENGHT];
+		char word[MAX_WORD_LENGTH];
 		while (fscanf(fp, "%s", word) == 1){
             insertElementToHashTable(hashTab, word);
         }
