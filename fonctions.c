@@ -70,42 +70,6 @@ int levenshtein_distance(char *s1, char *s2) {
     return matrix[len1][len2]; // Retourne la distance de Levenshtein entre les deux chaînes
 }
 
-// Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
-void fenetre(){
-    char ch;
-    char mot[MAX_WORD_LENGTH]="";
-
-    initscr(); // Initialise ncurses
-    cbreak(); // Désactive le buffering de ligne
-    noecho(); // Ne pas afficher les caractères saisis
-    keypad(stdscr, TRUE); // Active les touches spéciales (F1, flèches, etc.)
-
-    printw("Entrez du texte. Appuyez sur ESC pour quitter.\n");
-
-    do {
-        ch = getch();
-        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
-            printw("%c", ch);
-            char c[2] = {ch, '\0'}; // Crée un tableau de caractères pour stocker le caractère entré
-            if (ch != (char)KEY_ESP) {
-                strcat(mot, c);
-            }
-            else{
-                memset(mot, 0, sizeof(mot));
-            }
-        }
-        if (ch == (char)KEY_SUPPR){
-            move(getcury(stdscr), getcurx(stdscr) - 1);
-            delch();
-            refresh();
-            mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
-        }
-        
-    } while (ch != (char)KEY_ESC);
-
-    endwin(); // Ferme ncurses
-}
-
 void create_occ(){
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants.txt", "r");
@@ -230,8 +194,41 @@ void suggest_words(char *input_prefix) {
     sort_word_counts(word_counts, num_words);
     
     // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
-    printf("Voici les trois mots les plus fréquents qui commencent par '%s' :\n", input_prefix);
-    for (int i = 0; i < num_words && i < 3; i++) {
-        printf("%s\n", word_counts[i].word);
-    }
+    printw("[%s, %s, %s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
+}
+
+// Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
+void fenetre(){
+    char ch;
+    char mot[MAX_WORD_LENGTH]="";
+
+    initscr(); // Initialise ncurses
+    cbreak(); // Désactive le buffering de ligne
+    noecho(); // Ne pas afficher les caractères saisis
+    keypad(stdscr, TRUE); // Active les touches spéciales (F1, flèches, etc.)
+
+    printw("Entrez du texte. Appuyez sur ESC pour quitter.\n");
+
+    do {
+        ch = getch();
+        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
+            printw("%c", ch);
+            char c[2] = {ch, '\0'}; // Crée un tableau de caractères pour stocker le caractère entré
+            if (ch != (char)KEY_ESP) {
+                strcat(mot, c);
+            }
+            else{
+                memset(mot, 0, sizeof(mot));
+            }
+        }
+        if (ch == (char)KEY_SUPPR){
+            move(getcury(stdscr), getcurx(stdscr) - 1);
+            delch();
+            refresh();
+            mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
+        }
+        suggest_words(mot);
+    } while (ch != (char)KEY_ESC);
+
+    endwin(); // Ferme ncurses
 }
