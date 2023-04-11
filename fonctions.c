@@ -218,7 +218,7 @@ void fenetre(){
                 strcat(mot, c);
             }
             else{
-                memset(mot, 0, sizeof(mot));
+                memset(mot, 0, sizeof(mot)); // vide le mot
             }
         }
         if (ch == (char)KEY_SUPPR){
