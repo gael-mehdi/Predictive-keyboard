@@ -197,6 +197,19 @@ void suggest_words(char *input_prefix) {
     printw("[%s, %s, %s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
 }
 
+void effacer_jusqu_au_premier_crochet_de_la_droite() {
+    int y, x;
+    getyx(stdscr, y, x); // Récupère la position actuelle du curseur
+
+    // Boucle jusqu'à ce qu'on trouve le premier crochet "[" ou qu'on arrive au début de la ligne
+    while (x > 0 && mvwinch(stdscr, y, x-1) != '[') {
+        move(y, x-1);
+        delch();
+        x--;
+    }
+}
+
+
 // Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
 void fenetre(){
     char ch;
@@ -211,6 +224,7 @@ void fenetre(){
 
     do {
         ch = getch();
+        effacer_jusqu_au_premier_crochet_de_la_droite();
         if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
             printw("%c", ch);
             char c[2] = {ch, '\0'}; // Crée un tableau de caractères pour stocker le caractère entré
@@ -227,6 +241,7 @@ void fenetre(){
             refresh();
             mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
         }
+
         suggest_words(mot);
     } while (ch != (char)KEY_ESC);
     endwin(); // Ferme ncurses
