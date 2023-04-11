@@ -39,3 +39,4 @@ unsigned long getHashValue(char* string);
 void insertElementToHashTable(HashTable* hashTab, char* word);
 void loadDictionaryFromFile(HashTable* hashTab);
 bool checkExistenceWordInDictionary(HashTable* hashTab, char* word);
+void creating_occ();
