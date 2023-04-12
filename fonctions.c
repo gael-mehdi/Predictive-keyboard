@@ -171,14 +171,13 @@ void tri_occ(){
     fclose(output_file);
 }
 
-WordCount suggest_words(char *input_prefix) {
+void suggest_words(char *input_prefix) {
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants_occurrence.txt", "r");
     if (input_file == NULL) {
         fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée\n");
         exit(EXIT_FAILURE);
     }
-    
     // Compter le nombre d'occurrences de chaque mot qui commence par l'entrée utilisateur
     int num_words = 0;
     WordCount word_counts[MAX_WORDS];
@@ -198,7 +197,6 @@ WordCount suggest_words(char *input_prefix) {
     
     // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
     printw("[%s, %s, %s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
-    return word_counts ;
 }
 
 void effacer_jusqu_au_premier_crochet_de_la_droite() {
