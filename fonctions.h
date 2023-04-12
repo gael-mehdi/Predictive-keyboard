@@ -9,6 +9,9 @@
 #define KEY_ESC 27
 #define KEY_SUPPR 127
 #define KEY_ESP 32
+#define KEY_1 49
+#define KEY_2 50
+#define KEY_3 51
 #define MAX_WORD_LENGTH	40		/* Maximum word length */
 #define dictionaryFileName "mots_courants.txt"
 #define HASH_SIZE 37987	/* Prime number */
