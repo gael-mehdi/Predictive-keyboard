@@ -1,14 +1,14 @@
-de 100
+de 102
 je 69
 le 63
 la 55
 tu 49
 pour 47
-est 44
+est 45
 que 40
+ce 39
 et 39
-ce 38
-un 37
+un 38
 ai 34
 pas 31
 en 30
@@ -212,6 +212,7 @@ gardanne 2
 heure 2
 hier 2
 hockey 2
+jonction 2
 jour 2
 kebab 2
 laisse 2
@@ -373,6 +374,7 @@ candidature 1
 carnet 1
 carte 1
 cas 1
+ceci 1
 cela 1
 cent 1
 cesse 1
@@ -517,6 +519,7 @@ experiences 1
 expres 1
 fabuleuse 1
 facebook 1
+facture 1
 faim 1
 faires 1
 faites 1
@@ -877,6 +880,7 @@ tenait 1
 terminal 1
 termine 1
 terrain 1
+test 1
 tete 1
 texte 1
 texto 1

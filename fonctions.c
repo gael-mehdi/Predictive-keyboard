@@ -190,6 +190,7 @@ char** suggest_words(char *input_prefix) {
         fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée\n");
         exit(EXIT_FAILURE);
     }
+    
     // Compter le nombre d'occurrences de chaque mot qui commence par l'entrée utilisateur
     int num_words = 0;
     WordCount word_counts[MAX_WORDS];
@@ -207,19 +208,43 @@ char** suggest_words(char *input_prefix) {
         fprintf(stderr, "Impossible d'allouer de la mémoire\n");
         exit(EXIT_FAILURE);
     }
-    
-    top_words[0]=word_counts[0].word;
-    top_words[1]=word_counts[1].word;
-    top_words[2]=word_counts[2].word;
 
-    // Fermer le fichier d'entrée
-    fclose(input_file);
+    // Si moins de 3 mots ont été trouvés, compléter les suggestions avec les premiers mots du fichier "gutenberg.txt"
+    if (num_words < 3) {
+        // Ouvrir le fichier "gutenberg.txt"
+        FILE *gutenberg_file = fopen("gutenberg.txt", "r");
+        if (gutenberg_file == NULL) {
+            fprintf(stderr, "Impossible d'ouvrir le fichier gutenberg.txt\n");
+            exit(EXIT_FAILURE);
+        }
+
+        // Ajouter les premiers mots du fichier "gutenberg.txt" à la liste des suggestions
+        while (fscanf(gutenberg_file, "%s", current_word)==1) {
+        if (strncmp(current_word, input_prefix, strlen(input_prefix)) == 0) {
+            strcpy(word_counts[num_words].word, current_word);
+            num_words++;
+        }
+    }
+
+        // Fermer le fichier "gutenberg.txt"
+        fclose(gutenberg_file);
+    }
+    
+    // Ajouter les mots trouvés dans le fichier "mots_courants_occurrence.txt" à la liste des suggestions
+    int i;
+    for (i = 0; i < num_words; i++) {
+        top_words[i] = strdup(word_counts[i].word);
+    }
     
     // Trier les mots par ordre décroissant de leur nombre d'occurrences
     sort_word_counts(word_counts, num_words);
     
     // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
     printw("[%s,%s,%s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
+    
+    // Fermer le fichier d'entrée
+    fclose(input_file);
+
     return top_words;
 }
 
