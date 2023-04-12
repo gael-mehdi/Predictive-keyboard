@@ -171,7 +171,7 @@ void tri_occ(){
     fclose(output_file);
 }
 
-void suggest_words(char *input_prefix) {
+char** suggest_words(char *input_prefix) {
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants_occurrence.txt", "r");
     if (input_file == NULL) {
@@ -188,7 +188,18 @@ void suggest_words(char *input_prefix) {
             num_words++;
         }
     }
+
+    // Allouer de la mémoire pour le tableau de pointeurs vers des chaînes de caractères
+    char** top_words = malloc(3 * sizeof(char*));
+    if (top_words == NULL) {
+        fprintf(stderr, "Impossible d'allouer de la mémoire\n");
+        exit(EXIT_FAILURE);
+    }
     
+    top_words[0]=word_counts[0].word;
+    top_words[1]=word_counts[1].word;
+    top_words[2]=word_counts[2].word;
+
     // Fermer le fichier d'entrée
     fclose(input_file);
     
@@ -196,7 +207,8 @@ void suggest_words(char *input_prefix) {
     sort_word_counts(word_counts, num_words);
     
     // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
-    printw("[%s, %s, %s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
+    printw("[%s,%s,%s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
+    return top_words;
 }
 
 void effacer_jusqu_au_premier_crochet_de_la_droite() {
@@ -211,6 +223,17 @@ void effacer_jusqu_au_premier_crochet_de_la_droite() {
     }
 }
 
+void effacer_jusqu_au_premier_espace() {
+    int y, x;
+    getyx(stdscr, y, x); // Récupère la position actuelle du curseur
+
+    // Boucle jusqu'à ce qu'on trouve le premier espace " " ou qu'on arrive au début de la ligne
+    while (x > 0 && mvwinch(stdscr, y, x-2) != ' ') {
+        move(y, x-1);
+        delch();
+        x--;
+    }
+}
 
 // Cette fonction permet d'ouvrir une fenêtre avec la bibliothèque ncurses et de taper du texte dedans
 void fenetre(){
@@ -243,8 +266,34 @@ void fenetre(){
             refresh();
             mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
         }
+        
+        char** top_words = malloc(3 * sizeof(char*));
+        top_words = suggest_words(mot);
 
-        suggest_words(mot);
+        if (ch == (char)KEY_1){
+            effacer_jusqu_au_premier_espace();
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            printw(" ");
+            printw("%s", top_words[0]);
+            suggest_words(mot);
+        }
+
+        if (ch == (char)KEY_2){
+            effacer_jusqu_au_premier_espace();
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            printw(" ");
+            printw("%s", top_words[1]);
+            suggest_words(mot);
+        }
+
+        if (ch == (char)KEY_3){
+            effacer_jusqu_au_premier_espace();
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            printw(" ");
+            printw("%s", top_words[2]);
+            suggest_words(mot);
+        }
+
     } while (ch != (char)KEY_ESC);
     endwin(); // Ferme ncurses
 }
