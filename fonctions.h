@@ -37,6 +37,7 @@ typedef struct {
 
 int min(int x, int y, int z);
 int levenshtein_distance(char *s1, char *s2);
+void append_word_to_file(const char *word);
 void create_occ();
 int compare_word_counts(const void *a, const void *b);
 void sort_word_counts(WordCount *word_counts, int num_words);

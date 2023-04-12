@@ -73,6 +73,18 @@ int levenshtein_distance(char *s1, char *s2) {
     return matrix[len1][len2]; // Retourne la distance de Levenshtein entre les deux chaînes
 }
 
+void append_word_to_file(const char *word){
+    FILE *file = fopen("mots_courants.txt", "a"); // Ouverture du fichier en mode "ajout" (append)
+    if (file == NULL) {
+        fprintf(stderr, "Impossible d'ouvrir le fichier %s\n", "mots_courants.txt");
+        return;
+    }
+
+    fprintf(file, "%s\n", word); // Écriture du mot suivi d'un retour à la ligne
+
+    fclose(file); // Fermeture du fichier
+}
+
 void create_occ(){
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants.txt", "r");
@@ -257,7 +269,10 @@ void fenetre(){
                 strcat(mot, c);
             }
             else{
+                append_word_to_file(mot);
                 memset(mot, 0, sizeof(mot)); // vide le mot
+                create_occ();
+                tri_occ();
             }
         }
         if (ch == (char)KEY_SUPPR){

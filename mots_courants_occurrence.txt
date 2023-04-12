@@ -89,6 +89,7 @@ apres 4
 bon 4
 cet 4
 chaud 4
+controle 4
 courses 4
 encore 4
 faut 4
@@ -118,6 +119,7 @@ cc 3
 cette 3
 chercher 3
 comme 3
+contact 3
 coup 3
 cours 3
 deux 3
@@ -184,7 +186,8 @@ cinema 2
 client 2
 clients 2
 compte 2
-contact 2
+contacter 2
+coordination 2
 dab 2
 debut 2
 demande 2
@@ -408,10 +411,8 @@ connaissez 1
 connus 1
 consequent 1
 considere 1
-contacter 1
 contextes 1
 contre 1
-controle 1
 convenu 1
 conviviales 1
 copier 1
