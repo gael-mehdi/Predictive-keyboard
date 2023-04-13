@@ -295,6 +295,59 @@ void fenetre(){
     endwin(); // Ferme ncurses
 }
 
+void supprimer_mot_au_fichier(char *nom_fichier, char *mot){
+    FILE *fichier = fopen(nom_fichier, "a"); // ouvrir le fichier en mode "ajout"
+    if (fichier == NULL) {
+        printf("Impossible d'ouvrir le fichier %s\n", nom_fichier);
+        return;
+    }
+    // créer un fichier temporaire pour stocker les lignes sans le mot
+    char nom_fichier_temp[MAX_WORDS];
+    sprintf(nom_fichier_temp, "%s.temp", nom_fichier);
+    FILE *fichier_temp = fopen(nom_fichier_temp, "w"); // ouvrir le fichier temporaire en mode "écriture"
+    if (fichier_temp == NULL) {
+        printf("Impossible de créer le fichier temporaire %s\n", nom_fichier_temp);
+        fclose(fichier);
+        return;
+    }
+
+    char ligne[MAX_WORDS];
+    int numero_ligne = 1;
+    while (fgets(ligne, MAX_WORDS, fichier) != NULL) { // lire chaque ligne du fichier
+        char *position_mot = strstr(ligne, mot); // chercher le mot dans la ligne
+        while (position_mot != NULL) { // tant que le mot est trouvé dans la ligne
+            int decalage = position_mot - ligne; // calculer le décalage du mot dans la ligne
+            fseek(fichier, ftell(fichier) - strlen(ligne) + decalage, SEEK_SET); // déplacer le curseur de fichier au début du mot
+            ligne[decalage] = ' '; // remplacer le mot par un espace
+            fwrite(ligne, strlen(ligne), 1, fichier_temp); // écrire la ligne modifiée dans le fichier temporaire
+            fgets(ligne, MAX_WORDS, fichier); // lire la suite de la ligne
+            position_mot = strstr(ligne, mot); // chercher à nouveau le mot dans la ligne
+        }
+        fwrite(ligne, strlen(ligne), 1, fichier_temp); // écrire la ligne dans le fichier temporaire si le mot n'a pas été trouvé
+        numero_ligne++;
+    }
+
+    // fermer les fichiers
+    fclose(fichier);
+    fclose(fichier_temp);
+
+    // supprimer le fichier original
+    remove(nom_fichier);
+
+    // renommer le fichier temporaire en tant que fichier original
+    rename(nom_fichier_temp, nom_fichier);
+}
+
+void choix_menu_supprimer(){
+    char nom_fichier[MAX_WORD_LENGTH] = "mots_courants.txt";
+    char mot[MAX_WORD_LENGTH];
+    printf("\n Entrer le mot à supprimer : ");
+    scanf("%s", mot);
+    supprimer_mot_au_fichier(nom_fichier, mot);
+    create_occ();
+    tri_occ();
+}
+
 void ajouter_mot_au_fichier(char *nom_fichier, char *mot) {
     FILE *fichier = fopen(nom_fichier, "a"); // ouvrir le fichier en mode "ajout"
     if (fichier == NULL) {
@@ -335,6 +388,7 @@ void menu(){
 
         switch (choix){
             case 1 :
+                choix_menu_supprimer();
                 break;
             case 2 :
                 choix_menu_ajouter();

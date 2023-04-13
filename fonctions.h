@@ -35,6 +35,8 @@ void suggest_words(char *input_prefix,WordCount word_counts[]);
 void effacer_jusqu_au_premier_crochet_de_la_droite();
 void effacer_jusqu_au_premier_espace();
 void fenetre();
+void supprimer_mot_au_fichier(char *nom_fichier, char *mot);
+void choix_menu_supprimer();
 void ajouter_mot_au_fichier(char *nom_fichier, char *mot);
 void choix_menu_ajouter();
 void menu();
