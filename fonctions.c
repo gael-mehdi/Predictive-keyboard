@@ -384,6 +384,7 @@ void menu(){
         printf("1  suprimer un mot du dictionnaire de prédictio n\n");
         printf("2  ajouter un mot du dictionnaire de prédiction\n");
         printf("3  lancer l'application de saisie prédictive\n");
+        printf("4  pour quitter\n");
         scanf("%d", &choix);
 
         switch (choix){
@@ -396,6 +397,9 @@ void menu(){
             case 3 :
                 fenetre();;
                 break;
+            case 4 :
+                quitter = true ;
+                break ;
         }
     }
 }
