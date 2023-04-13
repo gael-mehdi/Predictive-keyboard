@@ -42,7 +42,7 @@ void create_occ();
 int compare_word_counts(const void *a, const void *b);
 void sort_word_counts(WordCount *word_counts, int num_words);
 void tri_occ();
-char** suggest_words(char *input_prefix);
+void suggest_words(char *input_prefix,WordCount word_counts[]);
 void effacer_jusqu_au_premier_crochet_de_la_droite();
 void effacer_jusqu_au_premier_espace();
 void fenetre();

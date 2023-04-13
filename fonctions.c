@@ -183,7 +183,7 @@ void tri_occ(){
     fclose(output_file);
 }
 
-char** suggest_words(char *input_prefix) {
+void suggest_words(char *input_prefix,WordCount word_counts[]) {
     // Ouvrir le fichier d'entrée
     FILE *input_file = fopen("mots_courants_occurrence.txt", "r");
     if (input_file == NULL) {
@@ -193,20 +193,12 @@ char** suggest_words(char *input_prefix) {
     
     // Compter le nombre d'occurrences de chaque mot qui commence par l'entrée utilisateur
     int num_words = 0;
-    WordCount word_counts[MAX_WORDS];
     char current_word[MAX_WORD_LENGTH];
     while (fscanf(input_file, "%s %d", current_word, &word_counts[num_words].count) == 2) {
         if (strncmp(current_word, input_prefix, strlen(input_prefix)) == 0) {
             strcpy(word_counts[num_words].word, current_word);
             num_words++;
         }
-    }
-
-    // Allouer de la mémoire pour le tableau de pointeurs vers des chaînes de caractères
-    char** top_words = malloc(3 * sizeof(char*));
-    if (top_words == NULL) {
-        fprintf(stderr, "Impossible d'allouer de la mémoire\n");
-        exit(EXIT_FAILURE);
     }
 
     // Si moins de 3 mots ont été trouvés, compléter les suggestions avec les premiers mots du fichier "gutenberg.txt"
@@ -230,11 +222,7 @@ char** suggest_words(char *input_prefix) {
         fclose(gutenberg_file);
     }
     
-    // Ajouter les mots trouvés dans le fichier "mots_courants_occurrence.txt" à la liste des suggestions
-    int i;
-    for (i = 0; i < num_words; i++) {
-        top_words[i] = strdup(word_counts[i].word);
-    }
+   
     
     // Trier les mots par ordre décroissant de leur nombre d'occurrences
     sort_word_counts(word_counts, num_words);
@@ -245,8 +233,20 @@ char** suggest_words(char *input_prefix) {
     // Fermer le fichier d'entrée
     fclose(input_file);
 
-    return top_words;
 }
+
+void effacer_jusqu_au_premier_crochet_de_la_droite() {
+    int y, x;
+    getyx(stdscr, y, x); // Récupère la position actuelle du curseur
+
+    // Boucle jusqu'à ce qu'on trouve le premier crochet "[" ou qu'on arrive au début de la ligne
+    while (x > 0 && mvwinch(stdscr, y, x-1) != '[') {
+        move(y, x-1);
+        delch();
+        x--;
+    }
+}
+
 
 void effacer_jusqu_au_premier_crochet_de_la_droite() {
     int y, x;
@@ -307,31 +307,40 @@ void fenetre(){
             mot[strlen(mot) - 1] = '\0'; // Supprime le dernier caractère de la chaîne mot
         }
         
-        char** top_words = malloc(3 * sizeof(char*));
-        top_words = suggest_words(mot);
+       WordCount word_counts[MAX_WORDS];
+       suggest_words(mot,word_counts);
 
         if (ch == (char)KEY_1){
             effacer_jusqu_au_premier_espace();
             memset(mot, 0, sizeof(mot)); // vide le mot
+            strcpy(mot,word_counts[0].word);
+            append_word_to_file(mot);
             printw(" ");
-            printw("%s", top_words[0]);
-            suggest_words(mot);
+            printw("%s", word_counts[0].word);
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            suggest_words(mot,word_counts);
         }
 
         if (ch == (char)KEY_2){
             effacer_jusqu_au_premier_espace();
             memset(mot, 0, sizeof(mot)); // vide le mot
+            strcpy(mot,word_counts[1].word);
+            append_word_to_file(mot);
             printw(" ");
-            printw("%s", top_words[1]);
-            suggest_words(mot);
+            printw("%s", word_counts[1].word);
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            suggest_words(mot,word_counts);
         }
 
         if (ch == (char)KEY_3){
             effacer_jusqu_au_premier_espace();
             memset(mot, 0, sizeof(mot)); // vide le mot
+            strcpy(mot,word_counts[2].word);
+            append_word_to_file(mot);
             printw(" ");
-            printw("%s", top_words[2]);
-            suggest_words(mot);
+            printw("%s", word_counts[2].word);
+            memset(mot, 0, sizeof(mot)); // vide le mot
+            suggest_words(mot,word_counts);
         }
 
     } while (ch != (char)KEY_ESC);
