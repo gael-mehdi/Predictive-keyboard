@@ -247,19 +247,6 @@ void effacer_jusqu_au_premier_crochet_de_la_droite() {
     }
 }
 
-
-void effacer_jusqu_au_premier_crochet_de_la_droite() {
-    int y, x;
-    getyx(stdscr, y, x); // Récupère la position actuelle du curseur
-
-    // Boucle jusqu'à ce qu'on trouve le premier crochet "[" ou qu'on arrive au début de la ligne
-    while (x > 0 && mvwinch(stdscr, y, x-1) != '[') {
-        move(y, x-1);
-        delch();
-        x--;
-    }
-}
-
 void effacer_jusqu_au_premier_espace() {
     int y, x;
     getyx(stdscr, y, x); // Récupère la position actuelle du curseur

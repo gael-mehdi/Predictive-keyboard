@@ -4,11 +4,11 @@ le 63
 la 55
 tu 49
 pour 47
-est 45
+est 46
 que 40
 ce 39
 et 39
-un 38
+un 39
 ai 34
 pas 31
 en 30
@@ -181,6 +181,7 @@ bisous 2
 bois 2
 bonne 2
 bonnes 2
+ceci 2
 chine 2
 cinema 2
 client 2
@@ -374,7 +375,6 @@ candidature 1
 carnet 1
 carte 1
 cas 1
-ceci 1
 cela 1
 cent 1
 cesse 1
