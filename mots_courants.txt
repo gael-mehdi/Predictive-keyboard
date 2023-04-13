@@ -1,4 +1,4 @@
-coucou
+      
 comment
 tu
 vas
@@ -26,7 +26,7 @@ un
 bout
 et
 boire
-coucou
+      
 ma
 biche
 ai
@@ -228,7 +228,7 @@ le
 projet
 algo
 ensemble
-coucou
+      
 comment
 tu
 vas
@@ -294,7 +294,7 @@ cet
 aprem
 tt
 heure
-coucou
+      
 ai
 croise
 ton
@@ -518,7 +518,7 @@ dans
 le
 train
 la
-coucou
+      
 comment
 vas
 tu
@@ -793,7 +793,7 @@ passe
 de
 bonnes
 vacances
-coucou
+      
 tu
 peux
 envoyer
@@ -836,7 +836,7 @@ que
 vous
 faites
 en
-coucou
+      
 je
 suis
 bien
@@ -853,7 +853,7 @@ des
 courses
 aujourd
 hui
-coucou
+      
 est
 ce
 que
@@ -997,7 +997,7 @@ troll
 est
 le
 feu
-coucou
+      
 simone
 est
 ton

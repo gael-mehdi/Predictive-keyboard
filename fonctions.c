@@ -296,29 +296,43 @@ void fenetre(){
 }
 
 void supprimer_mot_au_fichier(char *nom_fichier, char *mot) {
-    // ouvrir le fichier en mode "lecture/écriture"
-    FILE *fichier = fopen(nom_fichier, "r+");
+    FILE *fichier = fopen(nom_fichier, "r"); // ouvrir le fichier en mode "lecture"
     if (fichier == NULL) {
         printf("Impossible d'ouvrir le fichier %s\n", nom_fichier);
         return;
     }
-
-    char ligne[MAX_WORDS];
-    int decalage = strlen(mot)-1;
-    while (fgets(ligne, MAX_WORDS, fichier) != NULL) {
-        char *position_mot = strstr(ligne, mot);
-        while (position_mot != NULL) {
-            // remplacer le mot par un espace
-            ligne[position_mot - ligne] = ' ';
-            decalage = position_mot - ligne;
-            position_mot = strstr(position_mot + 1, mot);
-        }
-        fseek(fichier, ftell(fichier) - strlen(ligne), SEEK_SET);
-        fwrite(ligne, strlen(ligne), 1, fichier);
+    // créer un fichier temporaire pour stocker les lignes sans le mot
+    char nom_fichier_temp[MAX_WORDS];
+    sprintf(nom_fichier_temp, "%s.temp", nom_fichier);
+    FILE *fichier_temp = fopen(nom_fichier_temp, "w"); // ouvrir le fichier temporaire en mode "écriture"
+    if (fichier_temp == NULL) {
+        printf("Impossible de créer le fichier temporaire %s\n", nom_fichier_temp);
+        fclose(fichier);
+        return;
     }
 
-    // fermer le fichier
+    char ligne[MAX_WORDS];
+    while (fgets(ligne, MAX_WORDS, fichier) != NULL) { // lire chaque ligne du fichier
+        char *position_mot = strstr(ligne, mot); // chercher le mot dans la ligne
+        while (position_mot != NULL) { // tant que le mot est trouvé dans la ligne
+            int decalage = position_mot - ligne; // calculer le décalage du mot dans la ligne
+            for (int i = 0; i < strlen(mot); i++) {
+                ligne[decalage + i] = ' '; // remplacer chaque caractère du mot par un espace
+            }
+            position_mot = strstr(ligne, mot); // chercher à nouveau le mot dans la ligne
+        }
+        fwrite(ligne, strlen(ligne), 1, fichier_temp); // écrire la ligne modifiée dans le fichier temporaire
+    }
+
+    // fermer les fichiers
     fclose(fichier);
+    fclose(fichier_temp);
+
+    // supprimer le fichier original
+    remove(nom_fichier);
+
+    // renommer le fichier temporaire en tant que fichier original
+    rename(nom_fichier_temp, nom_fichier);
 }
 
 
