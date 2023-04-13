@@ -295,48 +295,32 @@ void fenetre(){
     endwin(); // Ferme ncurses
 }
 
-void supprimer_mot_au_fichier(char *nom_fichier, char *mot){
-    FILE *fichier = fopen(nom_fichier, "a"); // ouvrir le fichier en mode "ajout"
+void supprimer_mot_au_fichier(char *nom_fichier, char *mot) {
+    // ouvrir le fichier en mode "lecture/écriture"
+    FILE *fichier = fopen(nom_fichier, "r+");
     if (fichier == NULL) {
         printf("Impossible d'ouvrir le fichier %s\n", nom_fichier);
         return;
     }
-    // créer un fichier temporaire pour stocker les lignes sans le mot
-    char nom_fichier_temp[MAX_WORDS];
-    sprintf(nom_fichier_temp, "%s.temp", nom_fichier);
-    FILE *fichier_temp = fopen(nom_fichier_temp, "w"); // ouvrir le fichier temporaire en mode "écriture"
-    if (fichier_temp == NULL) {
-        printf("Impossible de créer le fichier temporaire %s\n", nom_fichier_temp);
-        fclose(fichier);
-        return;
-    }
 
     char ligne[MAX_WORDS];
-    int numero_ligne = 1;
-    while (fgets(ligne, MAX_WORDS, fichier) != NULL) { // lire chaque ligne du fichier
-        char *position_mot = strstr(ligne, mot); // chercher le mot dans la ligne
-        while (position_mot != NULL) { // tant que le mot est trouvé dans la ligne
-            int decalage = position_mot - ligne; // calculer le décalage du mot dans la ligne
-            fseek(fichier, ftell(fichier) - strlen(ligne) + decalage, SEEK_SET); // déplacer le curseur de fichier au début du mot
-            ligne[decalage] = ' '; // remplacer le mot par un espace
-            fwrite(ligne, strlen(ligne), 1, fichier_temp); // écrire la ligne modifiée dans le fichier temporaire
-            fgets(ligne, MAX_WORDS, fichier); // lire la suite de la ligne
-            position_mot = strstr(ligne, mot); // chercher à nouveau le mot dans la ligne
+    int decalage = strlen(mot)-1;
+    while (fgets(ligne, MAX_WORDS, fichier) != NULL) {
+        char *position_mot = strstr(ligne, mot);
+        while (position_mot != NULL) {
+            // remplacer le mot par un espace
+            ligne[position_mot - ligne] = ' ';
+            decalage = position_mot - ligne;
+            position_mot = strstr(position_mot + 1, mot);
         }
-        fwrite(ligne, strlen(ligne), 1, fichier_temp); // écrire la ligne dans le fichier temporaire si le mot n'a pas été trouvé
-        numero_ligne++;
+        fseek(fichier, ftell(fichier) - strlen(ligne), SEEK_SET);
+        fwrite(ligne, strlen(ligne), 1, fichier);
     }
 
-    // fermer les fichiers
+    // fermer le fichier
     fclose(fichier);
-    fclose(fichier_temp);
-
-    // supprimer le fichier original
-    remove(nom_fichier);
-
-    // renommer le fichier temporaire en tant que fichier original
-    rename(nom_fichier_temp, nom_fichier);
 }
+
 
 void choix_menu_supprimer(){
     char nom_fichier[MAX_WORD_LENGTH] = "mots_courants.txt";
@@ -381,7 +365,7 @@ void menu(){
 
     while (!quitter){
         printf("\n");
-        printf("1  suprimer un mot du dictionnaire de prédictio n\n");
+        printf("1  suprimer un mot du dictionnaire de prédiction\n");
         printf("2  ajouter un mot du dictionnaire de prédiction\n");
         printf("3  lancer l'application de saisie prédictive\n");
         printf("4  pour quitter\n");
