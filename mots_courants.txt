@@ -2611,3 +2611,10 @@ kj
 h
 k
 ceci
+bonjour
+
+je
+m'appelle
+coucou
+
+ftf

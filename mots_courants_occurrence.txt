@@ -1,5 +1,5 @@
 de 102
-je 69
+je 70
 le 63
 la 55
 tu 49
@@ -29,10 +29,10 @@ va 16
 me 15
 avec 14
 du 14
+bonjour 13
 moi 13
 suis 13
 te 13
-bonjour 12
 ne 12
 sur 12
 ton 12
@@ -42,8 +42,8 @@ tout 11
 as 10
 bien 10
 comment 10
+coucou 10
 aller 9
-coucou 9
 passe 9
 projet 9
 par 8
@@ -554,6 +554,7 @@ frites 1
 fromage 1
 frontieres 1
 frustrant 1
+ftf 1
 gardien 1
 gargouille 1
 gate 1
@@ -637,6 +638,7 @@ lors 1
 lui 1
 luxuriant 1
 lyon 1
+m'appelle 1
 machines 1
 mail 1
 maki 1
