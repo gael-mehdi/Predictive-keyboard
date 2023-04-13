@@ -273,6 +273,11 @@ voiture 2
 voulais 2
 voulez 2
 vrai 2
+1 1
+EMSE 1
+ISMIN 1
+LOL 1
+STP 1
 abord 1
 absence 1
 ac 1
@@ -800,6 +805,7 @@ rate 1
 rdv 1
 realisees 1
 realite 1
+recentres 1
 receptions 1
 recevoir 1
 recu 1
@@ -885,6 +891,7 @@ ta 1
 tacos 1
 tema 1
 tenait 1
+tennis 1
 terminal 1
 termine 1
 terrain 1

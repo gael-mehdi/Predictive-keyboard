@@ -26,7 +26,6 @@ typedef struct {
     int count;
 } WordCount;
 
-int min(int x, int y, int z);
 void append_word_to_file(const char *word);
 void create_occ();
 int compare_word_counts(const void *a, const void *b);
@@ -36,3 +35,6 @@ void suggest_words(char *input_prefix,WordCount word_counts[]);
 void effacer_jusqu_au_premier_crochet_de_la_droite();
 void effacer_jusqu_au_premier_espace();
 void fenetre();
+void ajouter_mot_au_fichier(char *nom_fichier, char *mot);
+void choix_menu_ajouter();
+void menu();

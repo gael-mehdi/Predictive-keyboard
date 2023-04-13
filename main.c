@@ -6,6 +6,6 @@ int main()
     create_occ();
     tri_occ();
     
-    fenetre();
+    menu();
     return 0;
 }

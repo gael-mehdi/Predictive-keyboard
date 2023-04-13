@@ -26,17 +26,6 @@ typedef struct {
     int count;
 } WordCount;
 
-// Cette fonction prend trois entiers en entrée et retourne le minimum de ces trois valeurs
-int min(int x, int y, int z) {
-    if (x <= y && x <= z) {
-        return x;
-    } else if (y <= x && y <= z) {
-        return y;
-    } else {
-        return z;
-    }
-}
-
 void append_word_to_file(const char *word){
     FILE *file = fopen("mots_courants.txt", "a"); // Ouverture du fichier en mode "ajout" (append)
     if (file == NULL) {
@@ -305,3 +294,55 @@ void fenetre(){
     } while (ch != (char)KEY_ESC);
     endwin(); // Ferme ncurses
 }
+
+void ajouter_mot_au_fichier(char *nom_fichier, char *mot) {
+    FILE *fichier = fopen(nom_fichier, "a"); // ouvrir le fichier en mode "ajout"
+    if (fichier == NULL) {
+        printf("Impossible d'ouvrir le fichier %s\n", nom_fichier);
+        return;
+    }
+
+    // déplacer le curseur de fichier à la fin du fichier
+    fseek(fichier, 0, SEEK_END);
+
+    // écrire le mot à la fin du fichier
+    fprintf(fichier, "%s", mot);
+
+    // fermer le fichier
+    fclose(fichier);
+}
+
+void choix_menu_ajouter(){
+    char nom_fichier[MAX_WORD_LENGTH] = "mots_courants.txt";
+    char mot[MAX_WORD_LENGTH];
+    printf("\n Entrer le mot à ajouter : ");
+    scanf("%s", mot);
+    ajouter_mot_au_fichier(nom_fichier, mot);
+    create_occ();
+    tri_occ();
+}
+
+void menu(){
+    bool quitter = false;
+    int choix;
+
+    while (!quitter){
+        printf("\n");
+        printf("1  suprimer un mot du dictionnaire de prédictio n\n");
+        printf("2  ajouter un mot du dictionnaire de prédiction\n");
+        printf("3  lancer l'application de saisie prédictive\n");
+        scanf("%d", &choix);
+
+        switch (choix){
+            case 1 :
+                break;
+            case 2 :
+                choix_menu_ajouter();
+                break;
+            case 3 :
+                fenetre();;
+                break;
+        }
+    }
+}
+
