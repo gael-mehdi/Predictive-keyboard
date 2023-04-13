@@ -11,3 +11,11 @@ README de notre projet
 **************************************************************
 
 - Compiler en écrivant "make main" dans le terminal.
+
+- Exécuter l'application en écrivant "./main" dans le terminal.
+
+- Vous aurez 4 options possible :
+	- ajouter un mot au dictionnaire de prédiction ;
+	- supprimer un mot du dictionnaire de prédiction ;
+	- lancer l'application de saisie prédictive ;
+	- quitter le programme. 
