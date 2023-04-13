@@ -3,3 +3,4 @@ main.o
 fonctions.o
 mots_courants.txt
 mots_courants_occurence.txt
+gutenberg.txt

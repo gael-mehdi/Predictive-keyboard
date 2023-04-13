@@ -14,8 +14,6 @@
 #define KEY_3 51
 #define MAX_WORD_LENGTH	40		/* Maximum word length */
 #define dictionaryFileName "mots_courants.txt"
-#define HASH_SIZE 37987	/* Prime number */
-#define BASE 128
 #define MAX_WORDS 10000
 
 typedef struct _element{
@@ -23,20 +21,12 @@ typedef struct _element{
 	struct _element* next;
 } Element;
 
-typedef struct _hashTable{
-	unsigned int size;
-	unsigned int nbOccupiedEntries;
-	unsigned int nbElements;
-	Element** Elements;
-} HashTable;
-
 typedef struct {
     char word[MAX_WORD_LENGTH];
     int count;
 } WordCount;
 
 int min(int x, int y, int z);
-int levenshtein_distance(char *s1, char *s2);
 void append_word_to_file(const char *word);
 void create_occ();
 int compare_word_counts(const void *a, const void *b);
