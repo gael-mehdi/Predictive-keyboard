@@ -245,10 +245,18 @@ void fenetre(){
                 strcat(mot, c);
             }
             else{
-                append_word_to_file(mot);
+                FILE *fp;
+                char searchword[MAX_WORD_LENGTH];
+                fp = fopen("gutenberg.txt", "r");
+                while (fscanf(fp, "%s", searchword) == 1) {
+                    if (strcmp(searchword, mot) == 0) {
+                        append_word_to_file(mot);
+                        memset(mot, 0, sizeof(mot)); // vide le mot
+                        create_occ();
+                        tri_occ();
+                    }
+                }
                 memset(mot, 0, sizeof(mot)); // vide le mot
-                create_occ();
-                tri_occ();
             }
         }
         if (ch == (char)KEY_SUPPR){
