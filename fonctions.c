@@ -7,8 +7,8 @@
 #include <math.h>
 
 #define KEY_ESC 27
-#define KEY_SUPPR 127
 #define KEY_ESP 32
+#define KEY_SUPPR 8
 #define KEY_1 49
 #define KEY_2 50
 #define KEY_3 51
@@ -274,7 +274,7 @@ void fenetre(){
     do {
         ch = getch();
         effacer_jusqu_au_premier_crochet_de_la_droite();
-        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR ) { // Si l'utilisateur décide de sortir de la fenêtre
+        if (ch != (char)KEY_ESC && ch != (char)KEY_SUPPR) { // Si l'utilisateur décide de sortir de la fenêtre
             printw("%c", ch);
             char c[2] = {ch, '\0'}; // Crée un tableau de caractères pour stocker le caractère entré
             if (ch != (char)KEY_ESP) {

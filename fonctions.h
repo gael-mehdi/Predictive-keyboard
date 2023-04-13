@@ -7,8 +7,8 @@
 #include <math.h>
 
 #define KEY_ESC 27
-#define KEY_SUPPR 127
 #define KEY_ESP 32
+#define KEY_SUPPR 8
 #define KEY_1 49
 #define KEY_2 50
 #define KEY_3 51

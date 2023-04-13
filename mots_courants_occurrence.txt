@@ -116,6 +116,7 @@ aussi 3
 avant 3
 car 3
 cc 3
+ceci 3
 cette 3
 chercher 3
 comme 3
@@ -181,7 +182,6 @@ bisous 2
 bois 2
 bonne 2
 bonnes 2
-ceci 2
 chine 2
 cinema 2
 client 2
@@ -213,6 +213,7 @@ gardanne 2
 heure 2
 hier 2
 hockey 2
+jh 2
 jonction 2
 jour 2
 kebab 2
@@ -540,6 +541,7 @@ fin 1
 fini 1
 finir 1
 finis 1
+fiuiiu 1
 flemme 1
 fleurs 1
 flot 1
@@ -565,6 +567,7 @@ grece 1
 grecs 1
 greg 1
 grosses 1
+h 1
 habite 1
 habitude 1
 haha 1
@@ -614,8 +617,10 @@ joyeux 1
 juillet 1
 juin 1
 juste 1
+k 1
 ke 1
 kilos 1
+kj 1
 koala 1
 lance 1
 lancelot 1
