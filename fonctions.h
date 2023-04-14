@@ -16,11 +16,6 @@
 #define dictionaryFileName "mots_courants.txt"
 #define MAX_WORDS 10000
 
-typedef struct _element{
-	char word[MAX_WORD_LENGTH];
-	struct _element* next;
-} Element;
-
 typedef struct {
     char word[MAX_WORD_LENGTH];
     int count;

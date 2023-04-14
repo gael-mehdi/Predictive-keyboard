@@ -16,11 +16,6 @@
 #define dictionaryFileName "mots_courants.txt"
 #define MAX_WORDS 10000
 
-typedef struct _element{
-	char word[MAX_WORD_LENGTH];
-	struct _element* next;
-} Element;
-
 typedef struct {
     char word[MAX_WORD_LENGTH];
     int count;
@@ -181,7 +176,7 @@ void suggest_words(char *input_prefix,WordCount word_counts[]) {
     sort_word_counts(word_counts, num_words);
     
     // Afficher les trois premiers mots les plus fréquents (ou moins si il y en a moins que 3)
-    printw("[%s,%s,%s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
+    printw("[1.%s,2.%s,3.%s]", word_counts[0].word, word_counts[1].word, word_counts[2].word);
     
     // Fermer le fichier d'entrée
     fclose(input_file);
