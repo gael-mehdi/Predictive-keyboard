@@ -18,4 +18,4 @@ README de notre projet
 	- ajouter un mot au dictionnaire de prédiction ;
 	- supprimer un mot du dictionnaire de prédiction ;
 	- lancer l'application de saisie prédictive ;
-	- quitter le programme. 
+	- quitter le programme.
